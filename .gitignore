@@ -1,6 +1,12 @@
 # Visual Studio cache/options directory
 .vs/
 
+#Intellij
+.idea/
+
+# User-specific files
+*.user
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

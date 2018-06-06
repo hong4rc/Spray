@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace Spray
 {
-	public class NativeMethods
+	public static class NativeMethods
 	{
 		public delegate IntPtr LowLevelProc(int nCode, IntPtr wParam, IntPtr lParam);
 

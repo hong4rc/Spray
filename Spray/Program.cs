@@ -3,55 +3,43 @@ using System.Threading;
 using System.Windows.Forms;
 
 
-namespace Spray
-{
-	static class Program
-	{
+namespace Spray {
+    internal static class Program {
+        private static SettingsFm _form;
+        private static HookKeys _hook;
+        private const string WindowName = "Spray";
 
-		private static SettingsFm form;
-		private static HookKeys hook;
-		private static String windowName = "Spray";
+        private static readonly Mutex Mutex = new Mutex(true, WindowName);
 
-		private static Mutex mutex = new Mutex(true, windowName);
-		[STAThread]
-		static void Main()
-		{
+        [STAThread]
+        private static void Main() {
+            if (Mutex.WaitOne(TimeSpan.Zero, true)) {
+                Mutex.ReleaseMutex();
+            }
+            else {
+                return;
+            }
 
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-			if (mutex.WaitOne(TimeSpan.Zero, true))
-			{
-				mutex.ReleaseMutex();
+            _form = new SettingsFm();
+            _hook = new HookKeys();
+            _hook.SetHook();
+            Application.Run(_form);
+            _hook.StopThread();
+            _hook.UnHook();
+        }
 
-			}
-			else
-			{
-				return;
-			}
+        public static bool IsRun {
+            get => _form.IsRun;
+            set => _form.IsRun = value;
+        }
 
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
+        public static bool OnlyCs => _form.OnlyCs;
 
-			form = new SettingsFm();
-			hook = new HookKeys();
-			hook.SetHook();
-			Application.Run(form);
-			hook.stopThread();
-			hook.UnHook();
-
-		}
-
-		public static bool IsRun {
-			get { return form.IsRun; }
-			set { form.IsRun = value; }
-		}
-		public static bool OnlyCs {
-			get { return form.OnlyCs; }
-			set { form.OnlyCs = value; }
-		}
-
-		public static void SelectGun(int index)
-		{
-			form.tickGun(index);
-		}
-	}
+        public static void SelectGun(int index) {
+            _form.TickGun(index);
+        }
+    }
 }
