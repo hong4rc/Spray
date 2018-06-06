@@ -47,7 +47,10 @@ namespace Spray {
         }
 
         private IntPtr HookKeyboardCb(int nCode, IntPtr wParam, IntPtr lParam) {
-            if (nCode < 0) return NativeMethods.CallNextHookEx(_hookKeyboardId, nCode, wParam, lParam);
+            if (nCode < 0) {
+                return NativeMethods.CallNextHookEx(_hookKeyboardId, nCode, wParam, lParam);
+            }
+
             var key = (Keys) Marshal.ReadInt32(lParam);
             if ((uint) wParam == NativeMethods.WM_KEYDOWN || (uint) wParam == NativeMethods.WM_SYSKEYDOWN) {
                 if (key == Keys.LShiftKey || key == Keys.RShiftKey) {

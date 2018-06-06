@@ -31,7 +31,10 @@ namespace Spray {
         protected override void OnFormClosing(FormClosingEventArgs e) {
             base.OnFormClosing(e);
 
-            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+            if (e.CloseReason == CloseReason.WindowsShutDown) {
+                return;
+            }
+
             Console.WriteLine(e.CloseReason);
             // Confirm user wants to close
             e.Cancel = _closeToTray;
