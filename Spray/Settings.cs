@@ -31,7 +31,8 @@ namespace Spray {
         protected override void OnFormClosing(FormClosingEventArgs e) {
             base.OnFormClosing(e);
 
-            if (e.CloseReason == CloseReason.WindowsShutDown) {
+            if (e.CloseReason == CloseReason.WindowsShutDown || cbExitToTray.Checked == false) {
+                SavePreference();
                 return;
             }
 
@@ -42,8 +43,8 @@ namespace Spray {
             Hide();
         }
 
-
         private void InitForm() {
+            LoadPreference();
             var ctxMn = new ContextMenu();
 
             ntIcon.ContextMenu = ctxMn;
@@ -57,6 +58,19 @@ namespace Spray {
             ctxMn.MenuItems.Add(menuItem);
 
             UpdateText();
+        }
+
+        private void SavePreference() {
+            Properties.Settings.Default.OnlyCs = cbOnlyCs.Checked;
+            Properties.Settings.Default.ExitToTray = cbExitToTray.Checked;
+            Properties.Settings.Default.Running = cbRunning.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void LoadPreference() {
+            cbOnlyCs.Checked = Properties.Settings.Default.OnlyCs;
+            cbExitToTray.Checked = Properties.Settings.Default.ExitToTray;
+            cbRunning.Checked = Properties.Settings.Default.Running;
         }
 
         private void InitGun() {

@@ -33,6 +33,7 @@
 			this.GunBox = new System.Windows.Forms.GroupBox();
 			this.cbRunning = new System.Windows.Forms.CheckBox();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.cbExitToTray = new System.Windows.Forms.CheckBox();
 			this.cbOnlyCs = new System.Windows.Forms.CheckBox();
 			this.ntIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.panel1.SuspendLayout();
@@ -42,7 +43,7 @@
 			// 
 			this.GunBox.Location = new System.Drawing.Point(29, 107);
 			this.GunBox.Name = "GunBox";
-			this.GunBox.Size = new System.Drawing.Size(246, 280);
+			this.GunBox.Size = new System.Drawing.Size(275, 280);
 			this.GunBox.TabIndex = 0;
 			this.GunBox.TabStop = false;
 			this.GunBox.Text = "Choose gun";
@@ -60,6 +61,7 @@
 			// 
 			// panel1
 			// 
+			this.panel1.Controls.Add(this.cbExitToTray);
 			this.panel1.Controls.Add(this.cbOnlyCs);
 			this.panel1.Controls.Add(this.GunBox);
 			this.panel1.Controls.Add(this.cbRunning);
@@ -68,16 +70,24 @@
 			this.panel1.Size = new System.Drawing.Size(337, 390);
 			this.panel1.TabIndex = 2;
 			// 
+			// cbExitToTray
+			// 
+			this.cbExitToTray.AutoSize = true;
+			this.cbExitToTray.Location = new System.Drawing.Point(198, 27);
+			this.cbExitToTray.Name = "cbExitToTray";
+			this.cbExitToTray.Size = new System.Drawing.Size(106, 21);
+			this.cbExitToTray.TabIndex = 3;
+			this.cbExitToTray.Text = "Exit To Tray";
+			this.cbExitToTray.UseVisualStyleBackColor = true;
+			// 
 			// cbOnlyCs
 			// 
 			this.cbOnlyCs.AutoSize = true;
-			this.cbOnlyCs.Checked = true;
-			this.cbOnlyCs.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.cbOnlyCs.Location = new System.Drawing.Point(29, 67);
 			this.cbOnlyCs.Name = "cbOnlyCs";
-			this.cbOnlyCs.Size = new System.Drawing.Size(90, 21);
+			this.cbOnlyCs.Size = new System.Drawing.Size(160, 21);
 			this.cbOnlyCs.TabIndex = 2;
-			this.cbOnlyCs.Text = "cbOnlyCs";
+			this.cbOnlyCs.Text = "Just run onle CS:GO";
 			this.cbOnlyCs.UseVisualStyleBackColor = true;
 			// 
 			// ntIcon
@@ -109,6 +119,6 @@
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.CheckBox cbOnlyCs;
 		private System.Windows.Forms.NotifyIcon ntIcon;
+		private System.Windows.Forms.CheckBox cbExitToTray;
 	}
 }
-
