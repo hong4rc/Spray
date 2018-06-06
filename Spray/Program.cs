@@ -15,8 +15,7 @@ namespace Spray {
         private static void Main() {
             if (Mutex.WaitOne(TimeSpan.Zero, true)) {
                 Mutex.ReleaseMutex();
-            }
-            else {
+            } else {
                 return;
             }
 

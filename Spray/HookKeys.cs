@@ -56,8 +56,7 @@ namespace Spray {
                 if (key == Keys.LShiftKey || key == Keys.RShiftKey) {
                     _shiftHold = true;
                 }
-            }
-            else if ((uint) wParam == NativeMethods.WM_KEYUP || (uint) wParam == NativeMethods.WM_SYSKEYUP) {
+            } else if ((uint) wParam == NativeMethods.WM_KEYUP || (uint) wParam == NativeMethods.WM_SYSKEYUP) {
                 if (key == Keys.LShiftKey || key == Keys.RShiftKey) {
                     _shiftHold = false;
                 }
@@ -79,20 +78,15 @@ namespace Spray {
         }
 
         private IntPtr HookMouseCb(int nCode, IntPtr wParam, IntPtr lParam) {
-            if (!Program.IsRun || nCode < 0) {
-                return NativeMethods.CallNextHookEx(_hookMouseId, nCode, wParam, lParam);
-            }
+            if (Program.IsRun && nCode >= 0) {
+                if ((uint) wParam == NativeMethods.WM_LBUTTONDOWN) {
+                    _thread.Start();
+                }
 
-            if ((uint) wParam == NativeMethods.WM_LBUTTONDOWN) {
-                _thread.Start();
+                if ((uint) wParam == NativeMethods.WM_LBUTTONUP) {
+                    _thread.Stop();
+                }
             }
-
-            if ((uint) wParam != NativeMethods.WM_LBUTTONUP) {
-                return NativeMethods.CallNextHookEx(_hookMouseId, nCode, wParam, lParam);
-            }
-
-            _thread.Stop();
-            _thread.Count = 0;
 
             return NativeMethods.CallNextHookEx(_hookMouseId, nCode, wParam, lParam);
         }

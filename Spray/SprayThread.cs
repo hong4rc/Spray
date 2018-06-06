@@ -6,7 +6,7 @@ namespace Spray {
     internal class SprayThread {
         private const string Csgo = "Counter-Strike: Global Offensive";
         private const int DelaySpray = 98;
-        public int Count;
+        private int _count;
         private INPUT _input;
 
         private const int RdX = 0;
@@ -39,7 +39,7 @@ namespace Spray {
         }
 
         public void Stop() {
-            Count = 0;
+            _count = 0;
             _spraying = false;
             _signal.Reset();
         }
@@ -57,12 +57,12 @@ namespace Spray {
 
         private void Move() {
             int x = 0, y = 0;
-            if (Count < SettingsFm.NowGun.Pattern.Length / 2) {
-                x = SettingsFm.NowGun.Pattern[Count, 0];
-                y = SettingsFm.NowGun.Pattern[Count, 1];
+            if (_count < SettingsFm.NowGun.Pattern.Length / 2) {
+                x = SettingsFm.NowGun.Pattern[_count, 0];
+                y = SettingsFm.NowGun.Pattern[_count, 1];
             }
 
-            Count++;
+            _count++;
             _input.type = NativeMethods.INPUT_MOUSE;
             _input.mi.mouseData = 0;
             _input.mi.time = 0;
