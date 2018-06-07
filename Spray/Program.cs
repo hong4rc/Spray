@@ -39,6 +39,7 @@ namespace Spray {
 
         public static void SelectGun(int index) {
             _form.TickGun(index);
+            IsRun = true;
         }
     }
 }
