@@ -46,7 +46,7 @@ namespace Spray {
             _thread.Exit();
         }
 
-        private IntPtr HookKeyboardCb(int nCode, IntPtr wParam, IntPtr lParam) {
+        private int HookKeyboardCb(int nCode, IntPtr wParam, IntPtr lParam) {
             if (nCode < 0) {
                 return NativeMethods.CallNextHookEx(_hookKeyboardId, nCode, wParam, lParam);
             }
@@ -64,9 +64,14 @@ namespace Spray {
                 if (key == KeyTurn) {
                     Toggle();
                 }
+            }
 
-                if (_shiftHold && key >= Keys.D1 && key < Keys.D1 + SettingsFm.Guns.Length) {
+            if (_shiftHold && key >= Keys.D1 && key < Keys.D1 + SettingsFm.Guns.Length) {
+                if ((uint) wParam == NativeMethods.WM_KEYDOWN || (uint) wParam == NativeMethods.WM_SYSKEYDOWN) {
                     Program.SelectGun(key - Keys.D1);
+                }
+                if (NativeMethods.GetActiveWindowTitle() == SprayThread.Csgo) {
+                    return 1;
                 }
             }
 
@@ -77,7 +82,7 @@ namespace Spray {
             Program.IsRun = !Program.IsRun;
         }
 
-        private IntPtr HookMouseCb(int nCode, IntPtr wParam, IntPtr lParam) {
+        private int HookMouseCb(int nCode, IntPtr wParam, IntPtr lParam) {
             if (Program.IsRun && nCode >= 0) {
                 if ((uint) wParam == NativeMethods.WM_LBUTTONDOWN) {
                     _thread.Start();

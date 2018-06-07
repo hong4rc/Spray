@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace Spray {
     public static class NativeMethods {
-        public delegate IntPtr LowLevelProc(int nCode, IntPtr wParam, IntPtr lParam);
+        public delegate int LowLevelProc(int nCode, IntPtr wParam, IntPtr lParam);
 
         public const uint WH_KEYBOARD_LL = 13;
         public const uint WH_MOUSE_LL = 14;
@@ -86,7 +86,7 @@ namespace Spray {
         public static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+        public static extern int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr GetModuleHandle(string lpModuleName);

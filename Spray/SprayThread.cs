@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Spray {
     internal class SprayThread {
-        private const string Csgo = "Counter-Strike: Global Offensive";
+        public const string Csgo = "Counter-Strike: Global Offensive";
         private const int DelaySpray = 98;
         private int _count;
         private INPUT _input;
