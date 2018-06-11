@@ -9,6 +9,7 @@ namespace Spray {
         private IntPtr _hookMouseId = IntPtr.Zero;
         private IntPtr _hookKeyboardId = IntPtr.Zero;
         private bool _shiftHold;
+        private bool _altHold;
         private readonly SprayThread _thread;
 
 
@@ -56,12 +57,20 @@ namespace Spray {
                 if (key == Keys.LShiftKey || key == Keys.RShiftKey) {
                     _shiftHold = true;
                 }
+
+                if (key == Keys.LMenu || key == Keys.RMenu) {
+                    _altHold = true;
+                }
             } else if ((uint) wParam == NativeMethods.WM_KEYUP || (uint) wParam == NativeMethods.WM_SYSKEYUP) {
                 if (key == Keys.LShiftKey || key == Keys.RShiftKey) {
                     _shiftHold = false;
                 }
 
-                if (key == KeyTurn) {
+                if (key == Keys.LMenu || key == Keys.RMenu) {
+                    _altHold = false;
+                }
+
+                if (_altHold == false && key == KeyTurn) {
                     Toggle();
                 }
             }
@@ -70,6 +79,7 @@ namespace Spray {
                 if ((uint) wParam == NativeMethods.WM_KEYDOWN || (uint) wParam == NativeMethods.WM_SYSKEYDOWN) {
                     Program.SelectGun(key - Keys.D1);
                 }
+
                 if (NativeMethods.GetActiveWindowTitle() == SprayThread.Csgo) {
                     return 1;
                 }
