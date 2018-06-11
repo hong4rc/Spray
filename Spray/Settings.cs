@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Spray {
     public partial class SettingsFm : Form {
-        private const string StrStopped = "This app is stopped.";
+        private const string StrStopping = "This app is stopping.";
         private const string StrRunning = "This app is running.";
         private static bool _closeToTray = true;
 
@@ -122,7 +122,7 @@ namespace Spray {
                 Console.Beep(1000, 200);
             }
             else {
-                cbRunning.Text = StrStopped;
+                cbRunning.Text = StrStopping;
                 Console.Beep(700, 50);
             }
         }
