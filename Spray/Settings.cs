@@ -31,14 +31,12 @@ namespace Spray {
         protected override void OnFormClosing(FormClosingEventArgs e) {
             base.OnFormClosing(e);
 
-            if (e.CloseReason == CloseReason.WindowsShutDown || cbExitToTray.Checked == false) {
+            if (e.CloseReason == CloseReason.WindowsShutDown || cbExitToTray.Checked == false || !_closeToTray) {
                 SavePreference();
                 return;
             }
 
-            Console.WriteLine(e.CloseReason);
-            // Confirm user wants to close
-            e.Cancel = _closeToTray;
+            e.Cancel = true;
             ntIcon.Visible = true;
             Hide();
         }
@@ -120,8 +118,7 @@ namespace Spray {
             if (cbRunning.Checked) {
                 cbRunning.Text = StrRunning;
                 Console.Beep(1000, 200);
-            }
-            else {
+            } else {
                 cbRunning.Text = StrStopping;
                 Console.Beep(700, 50);
             }
