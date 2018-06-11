@@ -8,6 +8,12 @@ namespace Spray {
         private const string StrStopping = "This app is stopping.";
         private const string StrRunning = "This app is running.";
         private static bool _closeToTray = true;
+        private const int OffsetX = 20;
+        private const int OffsetYHead = 30;
+        private const int OffsetYEnd = 10;
+        private const int CheckBoxWidth = 50;
+        private const int CheckBoxHeight = 20;
+        private const int GunsBoxWidth = 200;
 
         public static readonly Gun[] Guns =
             {Gun.Ak47, Gun.M4A4, Gun.M4A1S, Gun.Gali, Gun.Famas, Gun.Ump45, Gun.Aug, Gun.Sg};
@@ -75,8 +81,10 @@ namespace Spray {
             for (var i = 0; i < Guns.Length; i++) {
                 var gun = Guns[i];
                 var rb = new RadioButton {
+                    Width = CheckBoxWidth,
+                    Height = CheckBoxHeight,
                     Text = gun.Name,
-                    Location = new Point(20, 30 + 20 * i)
+                    Location = MyPoint(i)
                 };
 
                 rb.CheckedChanged += GunChange;
@@ -85,8 +93,15 @@ namespace Spray {
                 GunBox.Controls.Add(rb);
             }
 
-            GunBox.Size = new Size(200, 24 * Guns.Length + 30);
+            GunBox.Size = new Size(GunsBoxWidth,
+                CheckBoxHeight * (Guns.Length + Guns.Length % 2) / 2 + OffsetYEnd + OffsetYHead);
             _rbs[0].Checked = true;
+        }
+
+        private static Point MyPoint(int i) {
+            var x = i % 2;
+            var y = i / 2;
+            return new Point(OffsetX + x * GunsBoxWidth / 2, OffsetYHead + y * CheckBoxHeight);
         }
 
         public void TickGun(int a) {
