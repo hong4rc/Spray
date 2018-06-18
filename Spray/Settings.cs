@@ -11,9 +11,9 @@ namespace Spray {
         private const int OffsetX = 20;
         private const int OffsetYHead = 30;
         private const int OffsetYEnd = 10;
-        private const int CheckBoxWidth = 50;
+        private const int CheckBoxWidth = 80;
         private const int CheckBoxHeight = 20;
-        private const int GunsBoxWidth = 200;
+        private const int GunsBoxWidth = 2 * (OffsetX + CheckBoxWidth);
 
         public static readonly Gun[] Guns =
             {Gun.Ak47, Gun.M4A4, Gun.M4A1S, Gun.Gali, Gun.Famas, Gun.Ump45, Gun.Aug, Gun.Sg};
